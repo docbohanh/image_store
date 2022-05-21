@@ -1,0 +1,73 @@
+import 'package:flutter/material.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:image_store/models/image_item.dart';
+import 'package:photo_view/photo_view.dart';
+import 'package:photo_view/photo_view_gallery.dart';
+
+// to view image in full screen
+class ImageViewerWrapper extends StatefulWidget {
+  final LoadingBuilder? loadingBuilder;
+  final BoxDecoration? backgroundDecoration;
+  final int? initialIndex;
+  final PageController pageController;
+  final List<ImageItem> galleryItems;
+  final Axis scrollDirection;
+  final String? titleGallery;
+
+  ImageViewerWrapper({Key? key,
+    this.loadingBuilder,
+    this.titleGallery,
+    this.backgroundDecoration,
+    this.initialIndex,
+    required this.galleryItems,
+    this.scrollDirection = Axis.horizontal,
+  }) : pageController = PageController(initialPage: initialIndex ?? 0), super(key: key);
+
+  @override
+  State<StatefulWidget> createState() => _ImageViewerWrapperState();
+}
+
+class _ImageViewerWrapperState extends State<ImageViewerWrapper> {
+  final minScale = PhotoViewComputedScale.contained * 0.8;
+  final maxScale = PhotoViewComputedScale.covered * 8;
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(widget.titleGallery ?? "Galley"),
+      ),
+      body: Container(
+        decoration: widget.backgroundDecoration,
+        constraints: BoxConstraints.expand(
+          height: MediaQuery.of(context).size.height,
+        ),
+        child: PhotoViewGallery.builder(
+          scrollPhysics: const BouncingScrollPhysics(),
+          builder: _buildImage,
+          itemCount: widget.galleryItems.length,
+          loadingBuilder: widget.loadingBuilder,
+          backgroundDecoration: widget.backgroundDecoration,
+          pageController: widget.pageController,
+          scrollDirection: widget.scrollDirection,
+        ),
+      ),
+    );
+  }
+
+// build image with zooming
+  PhotoViewGalleryPageOptions _buildImage(BuildContext context, int index) {
+    final ImageItem item = widget.galleryItems[index];
+    return PhotoViewGalleryPageOptions.customChild(
+      child: CachedNetworkImage(
+        imageUrl: item.url,
+        placeholder: (context, url) =>
+            const Center(child: CircularProgressIndicator()),
+        errorWidget: (context, url, error) => const Icon(Icons.error),
+      ),
+      initialScale: PhotoViewComputedScale.contained,
+      minScale: minScale,
+      maxScale: maxScale,
+      heroAttributes: PhotoViewHeroAttributes(tag: item.url),
+    );
+  }
+}

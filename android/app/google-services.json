@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "561190837813",
+    "project_id": "imagestore-a71c7",
+    "storage_bucket": "imagestore-a71c7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:561190837813:android:f6912f7d8922a959109b7c",
+        "android_client_info": {
+          "package_name": "vtnb.mobile.image_store"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "561190837813-c67hvld2c1v2isabn1m5vuc77u4bv5cu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAVfqlGIy4FUr_GKzYZojh5nCvPG8KGeZk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "561190837813-c67hvld2c1v2isabn1m5vuc77u4bv5cu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
