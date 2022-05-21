@@ -40,17 +40,21 @@ class HomeViewModel extends BaseViewModel {
     }
   }
 
-  _uploadImage(String fileName, File imageFile) async {
+  _uploadImage(String fileName, File imageFile,
+      {String author = 'Conan'}) async {
     try {
       //set loading state
       setSecondaryBusy(ViewState.Busy);
       // Uploading the selected image with some custom meta data
-      final TaskSnapshot upload = await storage.ref(fileName).putFile(
-          imageFile,
-          SettableMetadata(customMetadata: {
-            'uploaded_by': 'Emmanuel',
-            'description': 'Some description...'
-          }));
+      final TaskSnapshot upload = await storage
+          .ref()
+          .child(author + '/' + fileName)
+          .putFile(
+              imageFile,
+              SettableMetadata(customMetadata: {
+                'uploaded_by': author,
+                'description': 'Some description...'
+              }));
       await _addUploadedItem(upload.ref);
       //Todo display success message
     } on FirebaseException catch (error) {
