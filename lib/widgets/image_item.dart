@@ -20,37 +20,37 @@ class ImageItemWidget extends StatelessWidget {
             fit: BoxFit.cover,
           ),
         ),
-        Align(
-          alignment: Alignment.bottomCenter,
-          child: Container(
-            // height: 65,
-            width: double.infinity,
-            constraints: const BoxConstraints(
-              maxHeight: 75,
-              minHeight: 65,
-            ),
-            padding: const EdgeInsets.all(10),
-            color: Colors.black.withOpacity(0.3),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  item.author,
-                  overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(
-                      fontWeight: FontWeight.bold, color: Colors.white),
-                ),
-                const SizedBox(height: 3),
-                Text(
-                  item.description,
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(color: Colors.white),
-                ),
-              ],
-            ),
-          ),
-        ),
+        // Align(
+        //   alignment: Alignment.bottomCenter,
+        //   child: Container(
+        //     // height: 65,
+        //     width: double.infinity,
+        //     constraints: const BoxConstraints(
+        //       maxHeight: 75,
+        //       minHeight: 65,
+        //     ),
+        //     padding: const EdgeInsets.all(10),
+        //     color: Colors.black.withOpacity(0.3),
+        //     child: Column(
+        //       crossAxisAlignment: CrossAxisAlignment.start,
+        //       children: [
+        //         Text(
+        //           item.author,
+        //           overflow: TextOverflow.ellipsis,
+        //           style: const TextStyle(
+        //               fontWeight: FontWeight.bold, color: Colors.white),
+        //         ),
+        //         const SizedBox(height: 3),
+        //         Text(
+        //           item.description,
+        //           maxLines: 2,
+        //           overflow: TextOverflow.ellipsis,
+        //           style: const TextStyle(color: Colors.white),
+        //         ),
+        //       ],
+        //     ),
+        //   ),
+        // ),
         Positioned(
             top: 10,
             right: 10,

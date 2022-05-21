@@ -44,7 +44,7 @@ class HomeViewModel extends BaseViewModel {
       {String author = 'Conan'}) async {
     try {
       //set loading state
-      setSecondaryBusy(ViewState.Busy);
+      setSecondaryBusy(ViewState.busy);
       // Uploading the selected image with some custom meta data
       final TaskSnapshot upload = await storage
           .ref()
@@ -62,7 +62,7 @@ class HomeViewModel extends BaseViewModel {
       log(error.message.toString());
     }
     // Refresh the UI
-    setSecondaryBusy(ViewState.Idle);
+    setSecondaryBusy(ViewState.idle);
   }
 
   // Retriew the uploaded images
@@ -86,13 +86,13 @@ class HomeViewModel extends BaseViewModel {
 
   // Retriew the uploaded images
   // This function is called when the app launches for the first time or when an image is uploaded or deleted
-  Future<void> fetchImages() async {
+  Future<void> fetchImages({String folder = 'Conan'}) async {
     try {
       await Future.delayed(const Duration(seconds: 2));
-      setBusy(ViewState.Busy);
+      setBusy(ViewState.busy);
 
       // get list of images form firebase storage
-      final ListResult result = await storage.ref().list();
+      final ListResult result = await storage.ref().child(folder).list();
       // get all items
       final List<Reference> allFiles = result.items;
       //populate [files] image data
@@ -118,13 +118,13 @@ class HomeViewModel extends BaseViewModel {
       //todo show error
       log(e.toString());
     }
-    setBusy(ViewState.Idle);
+    setBusy(ViewState.idle);
   }
 
   // Delete the selected image
   // This function is called when a trash icon is pressed
   Future<void> delete(ImageItem image) async {
-    setSecondaryBusy(ViewState.Busy);
+    setSecondaryBusy(ViewState.busy);
     try {
       await storage.ref(image.path).delete();
       items.removeWhere((element) => element == image);
@@ -134,6 +134,6 @@ class HomeViewModel extends BaseViewModel {
       log(e.toString());
     }
     // Rebuild the UI
-    setSecondaryBusy(ViewState.Idle);
+    setSecondaryBusy(ViewState.idle);
   }
 }
